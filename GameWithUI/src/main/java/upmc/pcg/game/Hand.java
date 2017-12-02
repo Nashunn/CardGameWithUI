@@ -7,10 +7,10 @@
 package upmc.pcg.game;
 
 /**
- * Class
+ * Represent a small deck of reveled card
  *
  * @author Nicolas BOULLET
  */
-public class Hand {
+public class Hand extends Deck {
     
 }

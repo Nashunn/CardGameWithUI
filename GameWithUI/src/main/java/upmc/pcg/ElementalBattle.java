@@ -12,8 +12,11 @@ import upmc.pcg.game.Game;
  * 
  * @author Nicolas BOULLET
  */
-public class CardGameWithUI {
+public class ElementalBattle {
     public static void main(String[] args) {
         Game game = new Game();
+        
+        game.initialize();
+        game.play();
     }   
 }

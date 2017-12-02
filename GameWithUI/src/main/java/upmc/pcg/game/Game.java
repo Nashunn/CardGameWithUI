@@ -7,8 +7,7 @@ package upmc.pcg.game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import upmc.pcg.ui.CardBoardUI;
-
+import upmc.pcg.ui.GameUI;
 /**
  * Class that contains methods to run the game
  *
@@ -16,13 +15,28 @@ import upmc.pcg.ui.CardBoardUI;
  */
 public class Game {
     private HashMap<String, Deck> decks = new HashMap<String, Deck>();
-    private ArrayList<Player> players;
+    private HashMap<String, Player> players;
     private CardBoard cardboard;
     private boolean boolQuitGame = false;
     
+    /**
+     * Explicit
+     */
     public void initialize() {
-        //Creation of a player with his name
+        players = GameUI.createPlayers();
+        
         //Creation of a deck for each player (shuffle each deck too)
+        for(HashMap.Entry<String, Player> player : players.entrySet()) {
+            
+        }
+        
         //Place each player on the cardBoard
+    }
+    
+    /**
+     * Explicit
+     */
+    public void play() {
+        
     }
 }
