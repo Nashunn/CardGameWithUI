@@ -15,7 +15,7 @@ import upmc.pcg.ui.GameUI;
  * @author Nicolas BOULLET
  */
 public class Deck {
-    protected String owner = "Default";
+    protected String owner = "DefaultOwner";
     protected ArrayList<Card> cards = new ArrayList<>();
     
     /**
@@ -65,6 +65,13 @@ public class Deck {
         }
 
         return list;
+    }
+    
+    /**
+     * Set an owner
+     */
+    public void setOwner(String newOwner) {
+        this.owner = newOwner;
     }
     
     /**

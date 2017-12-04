@@ -12,10 +12,29 @@ package upmc.pcg.game;
  * @author Nicolas BOULLET
  */
 public class Hand extends Deck {
-    public final int MAX_SIZE = 5;
+    public final static int MAX_SIZE = 5;
     
+    /**
+     * Default constructor
+     */
     public Hand() {
         super();
+    }
+    
+    /**
+     * Constructor with given owner
+     */
+    public Hand(String owner) {
+        super();
+        this.owner = owner;
+    }
+    
+    /**
+     * Print the name of the owner and the nb of cards of the deck
+     */
+    @Override
+    public String toString() {
+        return "Hand of "+this.owner+"("+nbCards()+")";
     }
     
     /**
@@ -23,7 +42,6 @@ public class Hand extends Deck {
      */
     @Override
     public void addCard(Card card) {
-        System.out.println("ADD CARD TO HAND"+card.toString());
         if(!isFull())
             this.cards.add(0, card);
     }

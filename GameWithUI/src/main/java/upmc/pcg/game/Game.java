@@ -7,6 +7,7 @@ package upmc.pcg.game;
 
 import java.util.HashMap;
 import upmc.pcg.ui.GameUI;
+
 /**
  * Class that contains methods to run the game
  *
@@ -15,6 +16,7 @@ import upmc.pcg.ui.GameUI;
 public class Game {
     private HashMap<String, Player> players;
     private boolean boolQuitGame = false;
+    private int resultBattle = 0;
     
     /**
      * Initialize parameters for the game
@@ -27,10 +29,11 @@ public class Game {
     /**
      * Launch the game
      */
-    public void play() {
+    public void play() {        
         do {
             fillHands();
             GameUI.askCard(getUser(), getIA());
+            resultBattle = cardBattle(getUser(), getIA());
             
             //to remove
             boolQuitGame = true;
@@ -67,5 +70,24 @@ public class Game {
      */
     public Player getIA() {
         return players.get("IA");
+    }
+    
+    /**
+     * Explicit
+     * 
+     * Returns :
+     *  1 if the user has won
+     *  0 if it's a draw
+     *  -1 if the IA won
+     */
+    public int cardBattle(Player user, Player IA) {
+        int resultOfBattle = 0;
+        Card userCard = user.getActiveCard();
+        Card enemyCard = IA.getActiveCard();
+        
+        GameUI.printBattleMsg(user, IA);
+        resultOfBattle = userCard.battle(enemyCard);
+        
+        return resultOfBattle;
     }
 }

@@ -37,7 +37,7 @@ public class Console {
         Integer result = null;
         
         try {
-            System.out.println("question");
+            System.out.println(question);
             result = scan.nextInt();
         }
         catch (InputMismatchException e) {
@@ -50,6 +50,13 @@ public class Console {
 
     public static Scanner setScanner() {
         return new Scanner(System.in);
+    }
+    
+    /**
+     * Print a separator line
+     */
+    public static void printSeparator() {
+        System.out.println("\n===============================");
     }
 }
 

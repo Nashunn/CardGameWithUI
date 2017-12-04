@@ -7,7 +7,8 @@ package upmc.pcg.ui;
 
 import java.util.HashMap;
 import java.util.Random;
-import java.util.Scanner;
+import upmc.pcg.game.Card;
+import upmc.pcg.game.Hand;
 import upmc.pcg.game.Player;
 
 /**
@@ -16,7 +17,20 @@ import upmc.pcg.game.Player;
  * @author Nicolas BOULLET
  */
 public class GameUI {
-    private static Scanner scan;
+    
+    /**
+     * Generate a random Integer between min and max
+     */
+    public static Integer generateRandomInt(int min, int max) {
+        Integer result = null;
+        Random random = new Random();
+        
+        if(min<max) {
+            result = random.nextInt(max - min + 1) + min;
+        }
+        
+        return result;
+    }
     
     /**
      * Explicit
@@ -49,24 +63,22 @@ public class GameUI {
      * and put one of the card in the IA's hand as active too
      */
     public static void askCard(Player user, Player IA) {
-        printAskCard();
-    }
-    
-    private void printAskCard() {
+        int chosenCardId = -1;
+        Console.printSeparator();
+        System.out.println("PLAY A CARD");
+        chosenCardId = MenuUI.printAskCard(user);
         
+        user.playCard(chosenCardId-1);
+        IA.playCard(GameUI.generateRandomInt(0, Hand.MAX_SIZE-1));       
     }
     
     /**
-     * Generate a random Integer between min and max
+     * Explicit
      */
-    public static Integer generateRandomInt(int min, int max) {
-        Integer result = null;
-        Random random = new Random();
+    public static void printBattleMsg(Player user, Player IA) {
+        String userCard = user.getActiveCard().toString();
+        String enemyCard = IA.getActiveCard().toString();
         
-        if(min<max) {
-            result = random.nextInt(max - min + 1) + min;
-        }
-        
-        return result;
+        System.out.println(userCard+"("+user+") VS "+enemyCard+"("+IA+")");
     }
 }

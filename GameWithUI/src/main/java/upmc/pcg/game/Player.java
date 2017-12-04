@@ -29,6 +29,7 @@ public class Player {
      */
     public Player(String name) {
         this.name = name;
+        this.hand = new Hand(name);
     }
     
     /**
@@ -49,11 +50,16 @@ public class Player {
         return this.name+"("+this.score+" point"+(this.score>1?"s":"")+")";
     }
     
+    public String printName() {
+        return this.name;
+    }
+    
     /**
      * Give a specific deck to a player
      */
     public void giveDeck(Deck newDeck) {
         this.deck = newDeck;
+        this.deck.setOwner(this.name);
     }
     
     /**
@@ -81,7 +87,6 @@ public class Player {
      * Fill hand with card from the deck
      */
     public void fillHand() {
-        System.out.println("REMPLIS LA MAIN");
         while(!this.hand.isFull()) {
             addCardToHand(this.deck.pickLastCard());
         }
@@ -106,6 +111,21 @@ public class Player {
      */
     public void playCard(Card activeCard) {
         this.activeCard = activeCard;
+    }
+    
+    /**
+     * Play a card by putting it as the active card of the player 
+     * take the id of the card
+     */
+    public void playCard(int activeCardID) {
+        this.activeCard = this.hand.pickCard(activeCardID);
+    }
+    
+    /**
+     * Return the active card of the player
+     */
+    public Card getActiveCard() {
+        return this.activeCard;
     }
     
     /**

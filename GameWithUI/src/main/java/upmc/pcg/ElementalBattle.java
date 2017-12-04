@@ -6,6 +6,7 @@
 package upmc.pcg;
 
 import upmc.pcg.game.Game;
+import upmc.pcg.ui.MenuUI;
 
 /**
  * Main Class of the game
@@ -15,8 +16,15 @@ import upmc.pcg.game.Game;
 public class ElementalBattle {
     public static void main(String[] args) {
         Game game = new Game();
+        boolean launch = false;
         
-        game.initialize();
-        game.play();
+        launch = MenuUI.launcherMenu();
+        
+        if(launch) {
+            game.initialize();
+            game.play();
+        }
+        else
+            MenuUI.printQuitGame();
     }   
 }
