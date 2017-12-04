@@ -11,7 +11,7 @@ import java.util.Scanner;
 import upmc.pcg.game.Player;
 
 /**
- * Contains Methods used in the UI for the game
+ * Contains methods used in the UI for the game
  *
  * @author Nicolas BOULLET
  */
@@ -42,6 +42,18 @@ public class GameUI {
         }while(result == "");
         
         return result;
+    }
+    
+    /**
+     * Ask the user to set a card as an active card
+     * and put one of the card in the IA's hand as active too
+     */
+    public static void askCard(Player user, Player IA) {
+        printAskCard();
+    }
+    
+    private void printAskCard() {
+        
     }
     
     /**

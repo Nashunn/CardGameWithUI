@@ -9,7 +9,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- * Contains Methods used in the UI for the game
+ * Class Util with methods about the console
  *
  * @author Nicolas BOULLET
  */

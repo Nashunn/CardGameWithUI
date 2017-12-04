@@ -12,5 +12,31 @@ package upmc.pcg.game;
  * @author Nicolas BOULLET
  */
 public class Hand extends Deck {
+    public final int MAX_SIZE = 5;
     
+    public Hand() {
+        super();
+    }
+    
+    /**
+     * Add card if the hand is not full
+     */
+    @Override
+    public void addCard(Card card) {
+        System.out.println("ADD CARD TO HAND"+card.toString());
+        if(!isFull())
+            this.cards.add(0, card);
+    }
+    
+    /**
+     * Explicit 
+     */
+    public boolean isFull() {
+        boolean result = false;
+        
+        if(nbCards() >= MAX_SIZE)
+            result = true;
+        
+        return result;
+    }
 }

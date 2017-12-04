@@ -5,7 +5,6 @@
 
 package upmc.pcg.game;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import upmc.pcg.ui.GameUI;
 /**
@@ -14,29 +13,59 @@ import upmc.pcg.ui.GameUI;
  * @author Nicolas BOULLET
  */
 public class Game {
-    private HashMap<String, Deck> decks = new HashMap<String, Deck>();
     private HashMap<String, Player> players;
-    private CardBoard cardboard;
     private boolean boolQuitGame = false;
     
     /**
-     * Explicit
+     * Initialize parameters for the game
      */
     public void initialize() {
         players = GameUI.createPlayers();
-        
-        //Creation of a deck for each player (shuffle each deck too)
-        for(HashMap.Entry<String, Player> player : players.entrySet()) {
-            
-        }
-        
-        //Place each player on the cardBoard
+        giveDeckToEachPlayer();
     }
     
     /**
-     * Explicit
+     * Launch the game
      */
     public void play() {
-        
+        do {
+            fillHands();
+            GameUI.askCard(getUser(), getIA());
+            
+            //to remove
+            boolQuitGame = true;
+        } while(!boolQuitGame);
+    }
+    
+    /**
+     * Creation of a deck for each player (shuffle each deck too)
+     */
+    public void giveDeckToEachPlayer() {
+        for(HashMap.Entry<String, Player> linePlayer : players.entrySet()) {
+            linePlayer.getValue().giveDeck(new Deck(false));
+        }
+    }
+    
+    /**
+     * Fill the hands of each player
+     */
+    public void fillHands() {
+        for(HashMap.Entry<String, Player> linePlayer : players.entrySet()) {
+            linePlayer.getValue().fillHand();
+        }
+    }
+    
+    /**
+     * Get the player of the user
+     */
+    public Player getUser() {
+        return players.get("user");
+    }
+    
+    /**
+     * Get the player of the IA
+     */
+    public Player getIA() {
+        return players.get("IA");
     }
 }

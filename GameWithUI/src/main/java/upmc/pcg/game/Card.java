@@ -24,8 +24,22 @@ public class Card {
      * construct a card between 1 and 5 dmg, with a random element
      */
     public Card() {
-        
         this.damage = GameUI.generateRandomInt(1, 5);
-        this.element = ELEMENTS[GameUI.generateRandomInt(0, 4)];
+        this.element = ELEMENTS[GameUI.generateRandomInt(0, 3)];
+    }
+    
+    /**
+     * Constructor with damage and element
+     */
+    public Card(int dmg, String elt) {
+        this.damage = dmg;
+        this.element = elt;
+    }
+    
+    /**
+     * Print the card in the form : 'damage' of 'element'
+     */
+    public String toString() {
+        return this.damage+" of "+this.element;
     }
 }

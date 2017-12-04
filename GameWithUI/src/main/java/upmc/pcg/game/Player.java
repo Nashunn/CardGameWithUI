@@ -12,11 +12,11 @@ package upmc.pcg.game;
  */
 public class Player {
     private String name = "Default";
-    private Deck deck;
-    private Hand hand;
+    private Deck deck = new Deck(true);
+    private Hand hand = new Hand();
+    private Card activeCard = null;
     private int score = 0;
     private boolean isIA = false;
-    private boolean hasWon = false;
     private boolean hasGiveUp = false;
     
     /**
@@ -41,7 +41,6 @@ public class Player {
         }
     }
     
-    
     /**
      * Explicit
      */    
@@ -56,4 +55,84 @@ public class Player {
     public void giveDeck(Deck newDeck) {
         this.deck = newDeck;
     }
+    
+    /**
+     * Explicit
+     */
+    public boolean isDeckEmpty() {
+        return this.deck.isEmpty();
+    }
+    
+    /**
+     * Explicit
+     */
+    public void addCardToDeck(Card newCard) {
+        this.deck.addCard(newCard);
+    }
+    
+    /**
+     * Explicit
+     */
+    public void addCardToHand(Card newCard) {
+        this.hand.addCard(newCard);
+    }
+    
+    /**
+     * Fill hand with card from the deck
+     */
+    public void fillHand() {
+        System.out.println("REMPLIS LA MAIN");
+        while(!this.hand.isFull()) {
+            addCardToHand(this.deck.pickLastCard());
+        }
+    }
+    
+    /**
+     * Explicit
+     */
+    public String listDeck() {
+        return this.deck.listCards();
+    }
+    
+    /**
+     * Explicit
+     */
+    public String listHand() {
+        return this.hand.listCards();
+    }
+    
+    /**
+     * Play a card by putting it as the active card of the player
+     */
+    public void playCard(Card activeCard) {
+        this.activeCard = activeCard;
+    }
+    
+    /**
+     * Explicit
+     */
+    public boolean isHandEmpty() {
+        return this.hand.isEmpty();
+    }
+    
+    /**
+     * Explicit
+     */
+    public void giveUp() {
+        this.hasGiveUp = true;
+    }
+    
+    /**
+     * Return hasGiveUp
+     */
+    public boolean getGiveUp() {
+        return this.hasGiveUp;
+    }
+    
+    /**
+     * Return isIA
+     */
+    public boolean getIsIA() {
+        return this.isIA;
+    }    
 }
