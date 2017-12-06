@@ -7,8 +7,6 @@ package upmc.pcg.ui;
 
 import java.util.HashMap;
 import java.util.Random;
-import upmc.pcg.game.Card;
-import upmc.pcg.game.Hand;
 import upmc.pcg.game.Player;
 
 /**
@@ -25,7 +23,7 @@ public class GameUI {
         Integer result = null;
         Random random = new Random();
         
-        if(min<max) {
+        if(min<=max) {
             result = random.nextInt(max - min + 1) + min;
         }
         
@@ -64,21 +62,69 @@ public class GameUI {
      */
     public static void askCard(Player user, Player IA) {
         int chosenCardId = -1;
-        Console.printSeparator();
-        System.out.println("PLAY A CARD");
+        Console.printTitle("Play a card");
+        
         chosenCardId = MenuUI.printAskCard(user);
         
         user.playCard(chosenCardId-1);
-        IA.playCard(GameUI.generateRandomInt(0, Hand.MAX_SIZE-1));       
+        IA.playCard(GameUI.generateRandomInt(0, IA.nbCardHand()-1));       
     }
     
     /**
      * Explicit
      */
-    public static void printBattleMsg(Player user, Player IA) {
+    public static void printResultOfBattle(Player user, Player IA, int resultBattle) {
         String userCard = user.getActiveCard().toString();
         String enemyCard = IA.getActiveCard().toString();
         
-        System.out.println(userCard+"("+user+") VS "+enemyCard+"("+IA+")");
+        Console.printTitle("Result of battle");
+        System.out.println(userCard+"("+user.printName()+") VS "+enemyCard+"("+IA.printName()+")");
+        printWinnerBattle(user, IA, resultBattle);
+        
+        Console.waitEnter();
+    }
+    
+    /**
+     * Print the winner after a switch with the result of the battle
+     */
+    private static void printWinnerBattle(Player user, Player IA, int resultBattle) {
+        switch(resultBattle) {
+            case 1:
+                System.out.println(user.printName()+" has won this battle!");
+                break;
+            case -1:
+                System.out.println(IA.printName()+" has won this battle!");
+                break;
+            default:
+                System.out.println("It's a draw !");
+                break;
+        }
+    }
+    
+    /**
+     * Explicit
+     */
+    public static void printEndOfTurn(Player user, Player IA) {
+        Console.printTitle("End of turn");
+        System.out.println("\nScore : "+user.toString()+" | "+IA.toString()+"\n");
+    }
+    
+    /**
+     * Explicit
+     */
+    public static void printEndGame(Player user, Player IA) {
+        Console.printTitle("END OF THE GAME");
+        System.out.println(MenuUI.printScore(user, IA));
+        
+        if(user.getGiveUp())
+           System.out.println("The IA won, because you give up !");
+        else {
+            if(user.getScore()>IA.getScore())
+                System.out.println("You won !");
+            else if(user.getScore()<IA.getScore())
+                System.out.println("The IA won !");
+            else
+                System.out.println("No winner for this time !");
+        }
     }
 }

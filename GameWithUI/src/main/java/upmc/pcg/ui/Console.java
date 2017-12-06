@@ -58,9 +58,21 @@ public class Console {
     public static void printSeparator() {
         System.out.println("\n===============================");
     }
+    
+    /**
+     * Print a title between two lines
+     */
+    public static void printTitle(String title) {
+        System.out.println("\n===============================");
+        System.out.println(title);
+        System.out.println("===============================");
+    }
+    
+    /**
+     * Wait the user to press enter
+     */
+    public static void waitEnter() {
+        askString("\nPress ENTER.. ");
+    }
+    
 }
-
-
-
-
-

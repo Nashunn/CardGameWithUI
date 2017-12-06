@@ -7,6 +7,7 @@ package upmc.pcg.game;
 
 import java.util.HashMap;
 import upmc.pcg.ui.GameUI;
+import upmc.pcg.ui.MenuUI;
 
 /**
  * Class that contains methods to run the game
@@ -34,10 +35,11 @@ public class Game {
             fillHands();
             GameUI.askCard(getUser(), getIA());
             resultBattle = cardBattle(getUser(), getIA());
-            
-            //to remove
-            boolQuitGame = true;
-        } while(!boolQuitGame);
+            givePointToPlayer();
+            boolQuitGame = MenuUI.endOfTurn(getUser(), getIA());
+        } while(!boolQuitGame && !(getUser().getGiveUp() || getIA().getGiveUp()));
+        
+        GameUI.printEndGame(getUser(), getIA());
     }
     
     /**
@@ -61,14 +63,14 @@ public class Game {
     /**
      * Get the player of the user
      */
-    public Player getUser() {
+    private Player getUser() {
         return players.get("user");
     }
     
     /**
      * Get the player of the IA
      */
-    public Player getIA() {
+    private Player getIA() {
         return players.get("IA");
     }
     
@@ -85,9 +87,26 @@ public class Game {
         Card userCard = user.getActiveCard();
         Card enemyCard = IA.getActiveCard();
         
-        GameUI.printBattleMsg(user, IA);
         resultOfBattle = userCard.battle(enemyCard);
         
+        GameUI.printResultOfBattle(user, IA, resultOfBattle);
+        
         return resultOfBattle;
+    }
+    
+    /**
+     * Give point to a player based on the result of the battle
+     */
+    public void givePointToPlayer() {
+        switch(resultBattle) {
+            case 1:
+                getUser().winPoint();
+                break;
+            case -1:
+                getIA().winPoint();
+                break;
+            default:
+                break;
+        }
     }
 }

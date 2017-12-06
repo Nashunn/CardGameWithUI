@@ -87,7 +87,7 @@ public class Player {
      * Fill hand with card from the deck
      */
     public void fillHand() {
-        while(!this.hand.isFull()) {
+        while(!this.hand.isFull() && !this.deck.isEmpty()) {
             addCardToHand(this.deck.pickLastCard());
         }
     }
@@ -104,6 +104,13 @@ public class Player {
      */
     public String listHand() {
         return this.hand.listCards();
+    }
+    
+    /**
+     * Explicit
+     */
+    public int nbCardHand() {
+        return this.hand.nbCards();
     }
     
     /**
@@ -133,6 +140,20 @@ public class Player {
      */
     public boolean isHandEmpty() {
         return this.hand.isEmpty();
+    }
+    
+    /**
+     * Add one point to the score
+     */
+    public void winPoint() {
+        this.score++;
+    }
+    
+    /**
+     * Return the score
+     */
+    public int getScore() {
+        return this.score;
     }
     
     /**

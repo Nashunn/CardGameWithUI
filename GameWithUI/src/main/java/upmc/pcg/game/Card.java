@@ -17,7 +17,7 @@ import upmc.pcg.ui.GameUI;
 public class Card {
     private int damage;
     private String element;
-    public static final String ELEMENTS[] = {"water", "fire", "air", "plant"};
+    public static final String ELEMENTS[] = {"water", "fire", "plant", "air"};
     
     /**
      * Default constructor
