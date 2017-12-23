@@ -5,6 +5,7 @@
 
 package upmc.pcg.ui;
 
+import java.awt.Color;
 import javax.swing.JButton;
 
 /**

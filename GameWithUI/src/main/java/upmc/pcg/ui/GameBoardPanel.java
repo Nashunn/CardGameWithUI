@@ -5,6 +5,7 @@
 
 package upmc.pcg.ui;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import upmc.pcg.game.Game;
 import upmc.pcg.game.Player;
 
 /**
@@ -21,6 +23,7 @@ import upmc.pcg.game.Player;
  * @author Nicolas BOULLET
  */
 public class GameBoardPanel extends JPanel {
+    private Game game;
     private JFrame parentFrame = null;
     private final GridLayout mainLayout = new GridLayout(3,1);
     private final UserPanel enemyPanel = new UserPanel();
@@ -37,9 +40,10 @@ public class GameBoardPanel extends JPanel {
     /**
      * Explicit
      */
-    public void construct(HashMap<String, Player> players, JFrame parent) {
+    public void construct(HashMap<String, Player> players, JFrame parent, Game game) {
         cleanAll();
         
+        this.game = game;
         this.parentFrame = parent;
         this.setLayout(mainLayout);
         setPlayers(players);
@@ -69,8 +73,8 @@ public class GameBoardPanel extends JPanel {
      * Explicit
      */
     private void constructAllPanels() {
-        constructPlayerPanel(enemyPanel, enemy, null);
-        constructPlayerPanel(userPanel, user, this.parentFrame);
+        constructPlayerPanel(enemyPanel, enemy, null, game);
+        constructPlayerPanel(userPanel, user, this.parentFrame, game);
         constructBattlePanel();
     }
     
@@ -86,10 +90,12 @@ public class GameBoardPanel extends JPanel {
     /**
      * Place all the CardButtons made from the hand of the player given
      */
-    private void constructPlayerPanel(UserPanel panel, Player player, JFrame parentFrame) {
+    private void constructPlayerPanel(UserPanel panel, Player player, JFrame parentFrame, Game game) {
+        panel.initGame(game);
         panel.setUser(player);
         panel.setButtonsList(createButtonsList(player));
         panel.setFrame(parentFrame);
+        panel.construct();
     }
     
     /**

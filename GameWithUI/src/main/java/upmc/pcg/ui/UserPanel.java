@@ -5,12 +5,14 @@
 
 package upmc.pcg.ui;
 
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import upmc.pcg.game.Game;
 import upmc.pcg.game.Player;
 
 /**
@@ -22,6 +24,7 @@ public class UserPanel extends JPanel {
     private JFrame parentFrame = null;
     private ArrayList<CardButton> buttons = new ArrayList<>();
     private Player user = new Player();
+    private Game game = null;
     
     /**
      * Default constructor
@@ -32,9 +35,19 @@ public class UserPanel extends JPanel {
      * Explicit
      */
     public void construct() {
+        setButtonsListener();
         for(CardButton button : this.buttons) {
             this.add(button);
+            if(this.user.printName().equals("IA"))
+                button.setEnabled(false);
         }
+    }
+    
+    /**
+     * Initialize the game with the current game object
+     */
+    public void initGame(Game game) {
+        this.game = game;
     }
     
     /**
@@ -75,7 +88,7 @@ public class UserPanel extends JPanel {
      */
     public void setButtonsListener() {    
         for(int i=0; i<this.buttons.size(); i++) {
-            buttons.get(i).addActionListener(setCardSelectListener(i, this, this.parentFrame));
+            buttons.get(i).addActionListener(setCardSelectListener(i, this, this.parentFrame, this.game));
         }
     }
     
@@ -89,15 +102,18 @@ public class UserPanel extends JPanel {
     /**
      * Set a Listener for a button
      */
-    public ActionListener setCardSelectListener(int cardNb, UserPanel panel, JFrame frame) {
+    public ActionListener setCardSelectListener(int cardNb, UserPanel panel, JFrame frame, Game game) { 
+        
         ActionListener al = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 panel.enableButtons(false);
                 panel.userSelectCard(cardNb);
+                
                 if(frame != null) {
                     frame.revalidate();
                 }
+                game.launchBattle();
             }
         };
         

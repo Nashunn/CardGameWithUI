@@ -18,6 +18,7 @@ import upmc.pcg.ui.MenuUI;
 public class Game {
     private HashMap<String, Player> players;
     private boolean boolQuitGame = false;
+    private static boolean battleReady = false;
     private int resultBattle = 0;
     private GameBoardFrame gameboard = new GameBoardFrame();
     
@@ -32,16 +33,19 @@ public class Game {
     /**
      * Launch the game
      */
-    public void play() {        
+    public void play() throws InterruptedException {        
         do {
             fillHands();
             
-            gameboard.initialize(players);
-            GameUI.askCard(getUser(), getIA());
+            gameboard.initialize(players, this);
+            //GameUI.askCard(getUser(), getIA());
+            
+            while(!battleReady) { Thread.sleep(200);}
             
             resultBattle = cardBattle(getUser(), getIA());
             givePointToPlayer();
             boolQuitGame = MenuUI.endOfTurn(getUser(), getIA());
+            battleReady = false;
         } while(!boolQuitGame && !(getUser().getGiveUp() || getIA().getGiveUp()));
         
         GameUI.printEndGame(getUser(), getIA());
@@ -115,5 +119,19 @@ public class Game {
             default:
                 break;
         }
+    }
+    
+    /**
+     * Tell the UI it can launch the battle by putting boolean battleReady at true
+     */
+    public void launchBattle() {
+        this.battleReady = true;
+    }
+    
+    /**
+     * Telle the UI it's the end of the battle by putting boolean battleReady at false
+     */
+    public void endBattle() {
+        this.battleReady = false;
     }
 }
