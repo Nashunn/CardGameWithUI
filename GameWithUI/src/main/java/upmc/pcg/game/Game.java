@@ -6,6 +6,7 @@
 package upmc.pcg.game;
 
 import java.util.HashMap;
+import upmc.pcg.ui.GameBoardFrame;
 import upmc.pcg.ui.GameUI;
 import upmc.pcg.ui.MenuUI;
 
@@ -18,6 +19,7 @@ public class Game {
     private HashMap<String, Player> players;
     private boolean boolQuitGame = false;
     private int resultBattle = 0;
+    private GameBoardFrame gameboard = new GameBoardFrame();
     
     /**
      * Initialize parameters for the game
@@ -33,7 +35,10 @@ public class Game {
     public void play() {        
         do {
             fillHands();
+            
+            gameboard.initialize(players);
             GameUI.askCard(getUser(), getIA());
+            
             resultBattle = cardBattle(getUser(), getIA());
             givePointToPlayer();
             boolQuitGame = MenuUI.endOfTurn(getUser(), getIA());
@@ -88,6 +93,8 @@ public class Game {
         Card enemyCard = IA.getActiveCard();
         
         resultOfBattle = userCard.battle(enemyCard);
+        
+        gameboard.printResultOfBattle(user, IA, resultOfBattle);
         
         GameUI.printResultOfBattle(user, IA, resultOfBattle);
         

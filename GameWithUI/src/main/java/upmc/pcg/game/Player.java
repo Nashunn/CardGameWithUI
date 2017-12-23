@@ -107,6 +107,13 @@ public class Player {
     }
     
     /**
+     * Get a card in hand by its number
+     */
+    public String getCardNameInHand(int iCard) {
+        return this.hand.getCardName(iCard);
+    }
+    
+    /**
      * Explicit
      */
     public int nbCardHand() {

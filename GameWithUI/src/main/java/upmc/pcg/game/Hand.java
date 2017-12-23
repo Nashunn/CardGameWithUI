@@ -57,4 +57,11 @@ public class Hand extends Deck {
         
         return result;
     }
+    
+    /**
+     * Return the text in the card of the id given
+     */
+    public String getCardName(int i) {
+        return this.cards.get(i).toString();
+    }
 }
