@@ -39,9 +39,8 @@ public class Game {
             
             gameboard.initialize(players, this);
             //GameUI.askCard(getUser(), getIA());
-            
-            //Wait the user to chose a card
-            while(!battleReady) { Thread.sleep(200); }
+
+            while(!battleReady) { Thread.sleep(200); } //Wait the user to chose a card
             
             selectCardForIA();
             resultBattle = cardBattle(getUser(), getIA());
