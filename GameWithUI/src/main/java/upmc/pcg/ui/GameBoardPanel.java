@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import upmc.pcg.game.Game;
 import upmc.pcg.game.Player;
@@ -24,10 +25,10 @@ import upmc.pcg.game.Player;
  */
 public class GameBoardPanel extends JPanel {
     private Game game;
-    private JFrame parentFrame = null;
+    private GameBoardFrame parentFrame = null;
     private final GridLayout mainLayout = new GridLayout(3,1);
     private final UserPanel enemyPanel = new UserPanel();
-    private final JPanel battlePanel = new JPanel(new GridLayout(2,1));
+    private final JPanel battlePanel = new JPanel(new GridLayout(1,3));
     private final UserPanel userPanel = new UserPanel();
     private Player enemy;
     private Player user;
@@ -40,7 +41,7 @@ public class GameBoardPanel extends JPanel {
     /**
      * Explicit
      */
-    public void construct(HashMap<String, Player> players, JFrame parent, Game game) {
+    public void construct(HashMap<String, Player> players, GameBoardFrame parent, Game game) {
         cleanAll();
         
         this.game = game;
@@ -90,7 +91,7 @@ public class GameBoardPanel extends JPanel {
     /**
      * Place all the CardButtons made from the hand of the player given
      */
-    private void constructPlayerPanel(UserPanel panel, Player player, JFrame parentFrame, Game game) {
+    private void constructPlayerPanel(UserPanel panel, Player player, GameBoardFrame parentFrame, Game game) {
         panel.initGame(game);
         panel.setUser(player);
         panel.setButtonsList(createButtonsList(player));
@@ -102,10 +103,19 @@ public class GameBoardPanel extends JPanel {
      * Place labels of battle cards
      */
     private void constructBattlePanel() {
+        JPanel panelScore = new JPanel(new GridLayout(2,1));
+        JPanel panelCard = new JPanel(new GridLayout(2,1));
+        
+        panelScore.add(new JLabel(enemy.toString()));
+        panelScore.add(new JLabel(user.toString()));
+        
         if(user.getActiveCard()!=null && enemy.getActiveCard()!=null) {
-            battlePanel.add(new CardLabel(enemy.getActiveCard()));
-            battlePanel.add(new CardLabel(user.getActiveCard()));
+            panelCard.add(new CardLabel(enemy.getActiveCard()));
+            panelCard.add(new CardLabel(user.getActiveCard()));
         }
+        
+        battlePanel.add(panelScore);
+        battlePanel.add(panelCard);
     }
     
     /**
@@ -126,6 +136,19 @@ public class GameBoardPanel extends JPanel {
         }
         
         return result;
+    }
+    
+    /**
+     * Revalidate every panels
+     */
+    public void revalidateAll() {
+        userPanel.removeAll();
+        enemyPanel.removeAll();
+        battlePanel.removeAll();
+        
+        userPanel.revalidate();
+        enemyPanel.revalidate();
+        battlePanel.revalidate();
     }
 }
     

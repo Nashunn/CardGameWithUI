@@ -14,7 +14,7 @@ import upmc.pcg.ui.MenuUI;
  * @author Nicolas BOULLET
  */
 public class ElementalBattle {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Game game = new Game();
         boolean launch = false;
         

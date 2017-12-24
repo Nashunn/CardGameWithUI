@@ -21,7 +21,7 @@ import upmc.pcg.game.Player;
  * @author Nicolas BOULLET
  */
 public class UserPanel extends JPanel {
-    private JFrame parentFrame = null;
+    private GameBoardFrame parentFrame = null;
     private ArrayList<CardButton> buttons = new ArrayList<>();
     private Player user = new Player();
     private Game game = null;
@@ -53,7 +53,7 @@ public class UserPanel extends JPanel {
     /**
      * Explicit
      */
-    public void setFrame(JFrame frame) {
+    public void setFrame(GameBoardFrame frame) {
         this.parentFrame = frame;
     }
     
@@ -102,16 +102,16 @@ public class UserPanel extends JPanel {
     /**
      * Set a Listener for a button
      */
-    public ActionListener setCardSelectListener(int cardNb, UserPanel panel, JFrame frame, Game game) { 
+    public ActionListener setCardSelectListener(int cardNb, UserPanel panel, GameBoardFrame frame, Game game) { 
         
         ActionListener al = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                panel.enableButtons(false);
+                //panel.enableButtons(false);
                 panel.userSelectCard(cardNb);
                 
                 if(frame != null) {
-                    frame.revalidate();
+                    frame.revalidatePanel();
                 }
                 game.launchBattle();
             }

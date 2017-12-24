@@ -37,7 +37,8 @@ public class GameUI {
         HashMap<String, Player> players = new HashMap<>();
         
         //Creation of players : user and an IA
-        players.put("user", new Player(askPlayerName()));
+        //players.put("user", new Player(askPlayerName()));
+        players.put("user", new Player("You"));
         players.put("IA", new Player(true));
         
         return players;

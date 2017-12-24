@@ -23,7 +23,8 @@ public class MenuUI {
         boolean launchGame = false;
         
         Console.printTitle("ELEMENTAL BATTLE");
-        launchGame = askLauncherMenu();
+        //launchGame = askLauncherMenu();
+        launchGame = true;
         Console.printSeparator();
         
         return launchGame;
@@ -106,7 +107,8 @@ public class MenuUI {
         
         if(!user.isHandEmpty() && !IA.isHandEmpty()) {
             GameUI.printEndOfTurn(user, IA);
-            quitGame = askActionEndTurn(user);
+            //quitGame = askActionEndTurn(user);
+            quitGame = false;
         }
         else
             quitGame = true;

@@ -40,8 +40,10 @@ public class Game {
             gameboard.initialize(players, this);
             //GameUI.askCard(getUser(), getIA());
             
-            while(!battleReady) { Thread.sleep(200);}
+            //Wait the user to chose a card
+            while(!battleReady) { Thread.sleep(200); }
             
+            selectCardForIA();
             resultBattle = cardBattle(getUser(), getIA());
             givePointToPlayer();
             boolQuitGame = MenuUI.endOfTurn(getUser(), getIA());
@@ -119,6 +121,13 @@ public class Game {
             default:
                 break;
         }
+    }
+    
+    /**
+     * Select a card for the IA before the battle
+     */
+    public void selectCardForIA() {
+        getIA().playCard(GameUI.generateRandomInt(0, getIA().nbCardHand()-1)); 
     }
     
     /**

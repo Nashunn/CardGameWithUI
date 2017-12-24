@@ -69,4 +69,11 @@ public class GameBoardFrame extends JFrame {
                 break;
         }
     }
+    
+    /**
+     * Revalidate every element on the panel
+     */
+    public void revalidatePanel() {
+        mainPanel.revalidateAll();
+    }
 }

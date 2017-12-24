@@ -70,9 +70,10 @@ public class Console {
     
     /**
      * Wait the user to press enter
+     * disable for the ui
      */
     public static void waitEnter() {
-        askString("\nPress ENTER.. ");
+        //askString("\nPress ENTER.. ");
     }
     
 }
